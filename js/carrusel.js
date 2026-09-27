@@ -5,8 +5,11 @@ function crearCarrusel(id, items) {
     let index = 0;
 
     let slides = "";
-    for (let i = 0; i < items.length; i++) {
-        slides = slides + '<div class="slide">' + items[i] + '</div>';
+  for (let i = 0; i < items.length; i++) {
+      slides = slides + '<div class="slide">' +
+                          '<img src="' + items[i].imagen + '">' +
+                          '<span>' + items[i].texto + '</span>' +
+                      '</div>';
     }
 
     contenedor.innerHTML =
