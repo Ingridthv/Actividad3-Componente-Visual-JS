@@ -11,7 +11,7 @@
 
 ## Autora
 
-Ingrid — Actividad 3. Componente Visual con JS
+Ingrid Arcadio Aparicio
 
 ---
 
@@ -220,13 +220,16 @@ Actividad3-Componente-Visual-JS/
 ## Capturas de pantalla
 
 ### Memorama de frutas
-![Memorama de frutas](img/captura-frutas.png)
+![Memorama de frutas](img/frutas.png)
 
 ### Memorama de verduras
-![Memorama de verduras](img/captura-verduras.png)
+![Memorama de verduras](img/verduras.png)
 
 ### HTML generado dinámicamente (herramientas de desarrollador)
-![HTML generado por JS](img/captura-consola.png)
+![HTML generado por JS](img/fruta_m.png)
+
+![HTML generado por JS](img/verdura_m.png)
+
 
 ## Video demo
 
