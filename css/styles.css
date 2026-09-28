@@ -7,12 +7,17 @@
 
 body {
     background: black;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 40px;
+}
+h1 {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 h2 {
@@ -36,25 +41,53 @@ h2 {
     transition: transform 0.4s ease;
 }
 
-.slide {
-    min-width: 100%;
+
+.carta {
+    min-width: 33.3333%;
     height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    background: white;
+    gap: 6px;
+    background: #70158b;
+    border: 3px solid black;
     color: #222;
-    font-size: 22px;
+    font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.slide img {
-    height: 130px;
-    max-width: 80%;
+.carta img,
+.carta span {
+    display: none;
+}
+
+.carta::after {
+    content: "?";
+    color: white;
+    font-size: 40px;
+}
+
+.carta.volteada {
+    background: white;
+}
+
+.carta.volteada img,
+.carta.volteada span {
+    display: block;
+}
+
+.carta.volteada::after {
+    display: none;
+}
+
+.carta img {
+    height: 70px;
+    max-width: 90%;
     object-fit: contain;
 }
+
 
 .btn {
     position: absolute;
@@ -75,4 +108,10 @@ h2 {
 
 .next {
     right: 10px;
+}
+
+.info {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
 }

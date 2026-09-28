@@ -1,4 +1,4 @@
-<h1 align="center">🎠 Carrusel JS</h1>
+<h1 align="center">🃏 Memorama Carrusel JS</h1>
 
 <p align="center">
   Componente visual reutilizable hecho con JavaScript, HTML y CSS puros.<br>
@@ -6,29 +6,35 @@
 </p>
 
 <p align="center">
-  <a href="https://ingridthv.github.io/Actividad3-Componente-Visual-JS/"><b>▶ Ver demo en vivo</b></a>
+  <a href="https://ingridthv.github.io/Actividad3-Componente-Visual-JS/"><b>Página</b></a>
 </p>
+
+## Autora
+
+Ingrid — Actividad 3. Componente Visual con JS
 
 ---
 
 ## ¿Qué problema resuelve?
 
-Cuando una página necesita varios carruseles (por ejemplo, uno de frutas y otro de verduras), lo normal es **copiar y pegar** el mismo bloque de HTML una y otra vez y cambiar el texto y las imágenes a mano. Eso es lento, se llena de código repetido y es fácil equivocarse.
+Hacer un memorama en una página normalmente significa escribir a mano el HTML de cada carta, repetir cada una para formar los pares, revolverlas y programar la lógica de voltear y comparar. Si quieres otro memorama con distintas imágenes, tienes que repetir todo.
 
-**Carrusel JS** lo resuelve con una sola función: le pasas *dónde* quieres el carrusel y *qué* quieres mostrar (texto e imagen), y él construye todo (HTML, botones y movimiento). Sin copiar y pegar, sin frameworks y sin instalar nada.
+**Memorama Carrusel JS** lo resuelve con una sola función: le pasas *dónde* quieres el juego y *qué* imágenes quieres usar, y él crea las cartas, forma los pares, las revuelve y maneja el juego. Además, las cartas están en un **carrusel**: solo se ven 3 a la vez y con las flechas te mueves entre ellas, así que tienes que recordar dónde quedó cada una.
 
 ## Características
 
-- Genera el HTML del carrusel dinámicamente con JavaScript.
-- Cada tarjeta muestra una **imagen** y un **texto**.
-- Botones ❮ ❯ con animación de deslizamiento.
-- Es circular: después de la última tarjeta vuelve a la primera.
-- Reutilizable: puedes tener varios carruseles en la misma página y cada uno funciona de forma independiente.
+- Genera todo el HTML dinámicamente con JavaScript.
+- Duplica los elementos para formar los pares y los revuelve al azar.
+- Las cartas se navegan con flechas ❮ ❯ (se ven 3 a la vez).
+- Al hacer clic, la carta se voltea y muestra su imagen y su texto.
+- Si las dos cartas son iguales se quedan descubiertas; si no, se voltean de nuevo.
+- Contador de intentos y mensaje al ganar.
+- Reutilizable: puedes tener varios memoramas en la misma página, cada uno independiente.
 - Sin frameworks ni dependencias.
 
 ## Instalación
 
-Copia a tu proyecto `css/styles.css`, `js/carrusel.js` y la carpeta `img/` con tus imágenes, e inclúyelos en tu HTML:
+Copia a tu proyecto `css/styles.css`, `js/memorama.js` y la carpeta `img/` con tus imágenes, e inclúyelos en tu HTML:
 
 ```html
 <head>
@@ -37,12 +43,12 @@ Copia a tu proyecto `css/styles.css`, `js/carrusel.js` y la carpeta `img/` con t
 <body>
     <!-- tu contenido -->
 
-    <script src="js/carrusel.js"></script>
+    <script src="js/memorama.js"></script>
     <script src="js/fruyver.js"></script>
 </body>
 ```
 
-> `carrusel.js` debe ir **antes** que el archivo donde lo usas (`fruyver.js`), porque este último llama a la función.
+> `memorama.js` debe ir **antes** que el archivo donde lo usas (`fruyver.js`), porque este último llama a la función.
 
 ## Uso
 
@@ -55,26 +61,28 @@ Copia a tu proyecto `css/styles.css`, `js/carrusel.js` y la carpeta `img/` con t
 </section>
 ```
 
-**2. En tu archivo JS, crea el carrusel indicando el contenedor y el contenido (texto e imagen):**
+**2. En tu archivo JS, crea el memorama indicando el contenedor y las imágenes:**
 
 ```js
-crearCarrusel("#frutas", [
-    { texto: "Uva", imagen: "img/uva.jpg" },
+crearMemorama("#frutas", [
+    { texto: "Uva", imagen: "img/uvav.jpg" },
     { texto: "Manzana", imagen: "img/manzana.jpg" },
     { texto: "Plátano", imagen: "img/platano.jpg" }
 ]);
 ```
 
-**3. ¿Otro carrusel con distinto contenido? Llama a la misma función de nuevo:**
+Con 3 elementos se generan 6 cartas (3 pares).
+
+**3. ¿Otro memorama con distinto contenido? Llama a la misma función de nuevo:**
 
 ```js
-crearCarrusel("#frutas", [
-    { texto: "Uva", imagen: "img/uva.jpg" },
+crearMemorama("#frutas", [
+    { texto: "Uva", imagen: "img/uvav.jpg" },
     { texto: "Manzana", imagen: "img/manzana.jpg" },
     { texto: "Plátano", imagen: "img/platano.jpg" }
 ]);
 
-crearCarrusel("#verduras", [
+crearMemorama("#verduras", [
     { texto: "Brócoli", imagen: "img/brocoli.jpg" },
     { texto: "Tomate", imagen: "img/tomate.jpg" },
     { texto: "Pimiento", imagen: "img/pimiento.jpg" }
@@ -83,69 +91,108 @@ crearCarrusel("#verduras", [
 
 ### Parámetros
 
-| Parámetro | Tipo   | Descripción                                                           |
-|-----------|--------|-----------------------------------------------------------------------|
-| `id`      | String | Selector del contenedor donde se dibuja el carrusel (ej. `"#frutas"`) |
-| `items`   | Array  | Lista de objetos, una tarjeta por cada uno                            |
+| Parámetro | Tipo   | Descripción                                                        |
+|-----------|--------|--------------------------------------------------------------------|
+| `id`      | String | Selector del contenedor donde se dibuja el juego (ej. `"#frutas"`) |
+| `items`   | Array  | Lista de objetos. Cada uno genera un **par** de cartas             |
 
 Cada objeto de `items` tiene:
 
-| Propiedad | Tipo   | Descripción                              |
-|-----------|--------|------------------------------------------|
-| `texto`   | String | Nombre que aparece debajo de la imagen   |
-| `imagen`  | String | Ruta de la imagen (ej. `"img/uva.jpg"`)  |
+| Propiedad | Tipo   | Descripción                                                |
+|-----------|--------|------------------------------------------------------------|
+| `texto`   | String | Nombre de la carta (también sirve para comparar los pares) |
+| `imagen`  | String | Ruta de la imagen (ej. `"img/uvav.jpg"`)                   |
 
-### Código de la librería (`js/carrusel.js`)
+### Código de la librería (`js/memorama.js`)
 
 ```js
-function crearCarrusel(id, items) {
+function crearMemorama(id, items) {
 
-    // 1. Buscamos el contenedor donde va a ir el carrusel
     const contenedor = document.querySelector(id);
 
-    // 2. Guarda en qué slide vamos (0 = la primera)
     let index = 0;
+    let primera = null;
+    let bloqueo = false;
+    let intentos = 0;
+    let pares = 0;
 
-    // 3. Creamos una slide (imagen + texto) por cada elemento de la lista
-    let slides = "";
-    for (let i = 0; i < items.length; i++) {
-        slides = slides + '<div class="slide">' +
-                              '<img src="' + items[i].imagen + '">' +
-                              '<span>' + items[i].texto + '</span>' +
-                          '</div>';
+    const cartas = items.concat(items);
+    cartas.sort(function () {
+        return Math.random() - 0.5;
+    });
+
+    let html = "";
+    for (let i = 0; i < cartas.length; i++) {
+        html = html + '<div class="carta">' +
+                          '<img src="' + cartas[i].imagen + '">' +
+                          '<span>' + cartas[i].texto + '</span>' +
+                      '</div>';
     }
 
-    // 4. Dibujamos el carrusel dentro del contenedor
     contenedor.innerHTML =
         '<div class="carousel">' +
-            '<div class="track">' + slides + '</div>' +
+            '<div class="track">' + html + '</div>' +
             '<button class="btn prev">&#10094;</button>' +
             '<button class="btn next">&#10095;</button>' +
-        '</div>';
+        '</div>' +
+        '<p class="info">Intentos: 0</p>';
 
-    // 5. Buscamos las piezas que acabamos de crear
     const track = contenedor.querySelector(".track");
     const nextBtn = contenedor.querySelector(".next");
     const prevBtn = contenedor.querySelector(".prev");
+    const info = contenedor.querySelector(".info");
+    const todas = contenedor.querySelectorAll(".carta");
 
-    // 6. Mueve el carrusel a la slide actual
     function actualizar() {
-        track.style.transform = "translateX(-" + index * 100 + "%)";
+        track.style.transform = "translateX(-" + index * (100 / 3) + "%)";
     }
 
-    // 7. Botón siguiente
     nextBtn.addEventListener("click", function () {
         index++;
-        if (index > items.length - 1) index = 0;
+        if (index > cartas.length - 3) index = 0;
         actualizar();
     });
 
-    // 8. Botón anterior
     prevBtn.addEventListener("click", function () {
         index--;
-        if (index < 0) index = items.length - 1;
+        if (index < 0) index = cartas.length - 3;
         actualizar();
     });
+
+    for (let i = 0; i < todas.length; i++) {
+        todas[i].addEventListener("click", function () {
+
+            if (bloqueo) return;
+            if (todas[i].classList.contains("volteada")) return;
+
+            todas[i].classList.add("volteada");
+
+            if (primera === null) {
+                primera = i;
+                return;
+            }
+
+            intentos++;
+            info.textContent = "Intentos: " + intentos;
+
+            if (cartas[primera].texto === cartas[i].texto) {
+                pares++;
+                primera = null;
+                if (pares === items.length) {
+                    info.textContent = "¡Ganaste en " + intentos + " intentos!";
+                }
+            } else {
+                bloqueo = true;
+                const anterior = primera;
+                primera = null;
+                setTimeout(function () {
+                    todas[anterior].classList.remove("volteada");
+                    todas[i].classList.remove("volteada");
+                    bloqueo = false;
+                }, 1000);
+            }
+        });
+    }
 }
 ```
 
@@ -154,38 +201,34 @@ function crearCarrusel(id, items) {
 ```
 Actividad3-Componente-Visual-JS/
 ├── css/
-│   └── styles.css      # Estilos del carrusel
+│   └── styles.css     
 ├── js/
-│   ├── carrusel.js     # La librería (función crearCarrusel)
-│   └── fruyver.js      # Uso del componente: frutas y verduras
-├── img/                # Imágenes de las tarjetas y capturas
-├── index.html          # Página de demostración
+│   ├── memorama.js     
+│   └── fruyver.js      
+├── img/                
+├── index.html          
 └── README.md
 ```
 
 ## Notas
 
 - No requiere instalación ni compilación: basta con abrir `index.html` en el navegador.
-- Se puede usar con tantas tarjetas como se quiera, sin límite.
-- Para cambiar el tamaño de las imágenes, ajusta la propiedad `height` en la regla `.slide img` de `styles.css`.
+- Para un memorama más grande, agrega más elementos a la lista; el componente crea los pares solo.
+- Para cambiar el tamaño de las imágenes, ajusta `height` en la regla `.carta img` de `styles.css`.
 
-## Autora
-
-Ingrid — Actividad 3. Componente Visual con JS
-
----
 
 ## Capturas de pantalla
 
-### Carrusel de frutas
-![Carrusel de frutas](img/captura-frutas.png)
+### Memorama de frutas
+![Memorama de frutas](img/captura-frutas.png)
 
-### Carrusel de verduras
-![Carrusel de verduras](img/captura-verduras.png)
+### Memorama de verduras
+![Memorama de verduras](img/captura-verduras.png)
 
 ### HTML generado dinámicamente (herramientas de desarrollador)
 ![HTML generado por JS](img/captura-consola.png)
 
 ## Video demo
 
-▶ **[Ver el video promocional (1 min)](PEGA-AQUI-EL-LINK-DEL-VIDEO)**
+
+
